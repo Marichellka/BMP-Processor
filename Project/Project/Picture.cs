@@ -1,9 +1,17 @@
-﻿namespace Project
+﻿using System;
+
+namespace Project
 {
     public class Picture
     {
-        private Pixel[][] Pixels { get; }
-        private int width;
-        private int height;
+        public Pixel[,] Pixels { get; set; }
+        public UInt32 Width { get; }
+        public UInt32 Depth { get;  }
+
+        public Picture(UInt32 w, UInt32 d)
+        {
+            Width = w;
+            Depth = d;
+        }
     }
 }
