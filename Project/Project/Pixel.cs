@@ -1,9 +1,18 @@
-﻿namespace Project
+﻿using System;
+
+namespace Project
 {
     public class Pixel
     {
-        public int Red { get; private set;}
-        public int Green { get; private set;}
-        public int Blue { get; private set;}
+        public Byte Red { get; }
+        public Byte Green { get; }
+        public Byte Blue { get; }
+
+        public Pixel(Byte red, Byte green, Byte blue)
+        {
+            Red = red;
+            Green = green;
+            Blue = blue;
+        }
     }
 }
