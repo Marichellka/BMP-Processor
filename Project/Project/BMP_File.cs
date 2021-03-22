@@ -6,32 +6,26 @@ namespace Project
     public class BMP_File
     {
         private UInt32 filesize;
-        private UInt32 width;
-        private UInt32 depth;
+        private Picture _picture;
 
         BMP_File(string path)
         {
-            using (StreamReader streamReader = new StreamReader(path))
+            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
             {
-                Reader(streamReader, 2);//BM
-                filesize = UInt32.Parse(Reader(streamReader, 4));
-                Reader(streamReader, 12);//reserved[2], headersize, infoSize
-                width = UInt32.Parse(Reader(streamReader, 4));
-                depth = UInt32.Parse(Reader(streamReader, 4));
-                Reader(streamReader, 28);//other info
+                reader.ReadBytes(2);//BM
+                filesize = reader.ReadUInt32();
+                reader.ReadBytes(12);//reserved[2], headersize, infoSize
+                UInt32 width = reader.ReadUInt32();
+                UInt32 depth = reader.ReadUInt32();
+                _picture = new Picture(width, depth);
+                reader.ReadBytes(28);//other info
             }
+            
         }
-
-        private string Reader(StreamReader sr, int numberOfBites)
+        
+        BMP_File(string path, double numberOfTimes, BMP_File previousFile)
         {
-            string info = "";
-            while (numberOfBites!=0)
-            {
-                info += sr.Read();
-            }
-            return info;
+            
         }
-
-        BMP_File(string path, double numberOfTimes){}
     }
 }
