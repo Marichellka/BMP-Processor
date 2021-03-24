@@ -30,14 +30,16 @@ namespace Project
 
         private void CreatePicture(BinaryReader br)
         {
-            _picture.Pixels = new Pixel[_picture.Width, _picture.Depth];
-            for (int i = 0; i < _picture.Width; i++)
+            _picture.Pixels = new Pixel[_picture.Depth, _picture.Width];
+            int countOfIgnoreBits = Convert.ToInt32(4-(_picture.Width*3%4));
+            for (int i = 0; i < _picture.Depth; i++)
             {
-                for (int j = 0; j < _picture.Depth; j++)
+                for (int j = 0; j < _picture.Width; j++)
                 {
                     _picture.Pixels[i, j] = new Pixel(br.ReadByte(), br.ReadByte(), br.ReadByte());
                 }
             }
+            br.ReadBytes(countOfIgnoreBits);
         }
 
         public BMP_File(double numberOfTimes, BMP_File previousFile)
@@ -51,6 +53,7 @@ namespace Project
 
         public void Writer(string path)
         {
+            int countOfIgnoreBits = Convert.ToInt32(4-(_picture.Width*3%4));
             using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
                 writer.Write('B');
@@ -72,6 +75,19 @@ namespace Project
                     writer.Write(currentPixel.Red);
                     writer.Write(currentPixel.Green);
                     writer.Write(currentPixel.Blue);
+                }
+                for (int i = 0; i < _picture.Depth; i++)
+                {
+                    for (int j = 0; j < _picture.Width; j++)
+                    {
+                        writer.Write(_picture.Pixels[i,j].Red);
+                        writer.Write(_picture.Pixels[i,j].Green);
+                        writer.Write(_picture.Pixels[i,j].Blue);
+                    }
+                }
+                for (int j = 0; j < countOfIgnoreBits; j++)
+                {
+                    writer.Write(0);
                 }
             }
         }
