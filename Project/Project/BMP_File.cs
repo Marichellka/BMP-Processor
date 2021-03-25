@@ -31,7 +31,11 @@ namespace Project
         private void CreatePicture(BinaryReader br)
         {
             _picture.Pixels = new Pixel[_picture.Depth, _picture.Width];
+<<<<<<< HEAD
             int countOfIgnoreBits = 4-Convert.ToInt32(_picture.Width)*3%4;
+=======
+            int countOfIgnoreBits = Convert.ToInt32(_picture.Width)%4;
+>>>>>>> BMP_File
             for (int i = 0; i < _picture.Depth; i++)
             {
                 for (int j = 0; j < _picture.Width; j++)
@@ -51,7 +55,11 @@ namespace Project
 
         public void Writer(string path)
         {
+<<<<<<< HEAD
             int countOfZeroBits = 4-Convert.ToInt32(_picture.Width)*3%4;
+=======
+            int countOfZeroBits = Convert.ToInt32(_picture.Width)%4;
+>>>>>>> BMP_File
             using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
                 writer.Write('B');
