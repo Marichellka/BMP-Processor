@@ -31,7 +31,7 @@ namespace Project
         private void CreatePicture(BinaryReader br)
         {
             _picture.Pixels = new Pixel[_picture.Depth, _picture.Width];
-            int countOfIgnoreBits = 4-Convert.ToInt32(_picture.Width)*3%4;
+            int countOfIgnoreBits = 3-(Convert.ToInt32(_picture.Width)*3-1)%4;
             for (int i = 0; i < _picture.Depth; i++)
             {
                 for (int j = 0; j < _picture.Width; j++)
@@ -46,13 +46,13 @@ namespace Project
         {
             headerInfo = previousFile.headerInfo;
             _picture = new Picture(previousFile._picture.Pixels, numberOfTimes);
-            _picture.Resize(previousFile._picture.Pixels);
             filesize = Convert.ToUInt32(previousFile.filesize * numberOfTimes);
+            _picture.Resize(previousFile._picture.Pixels);
         }
 
         public void Writer(string path)
         {
-            int countOfZeroBits = 4-Convert.ToInt32(_picture.Width)*3%4;
+            int countOfZeroBits = 3-(Convert.ToInt32(_picture.Width)*3-1)%4;
             using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
                 writer.Write('B');
