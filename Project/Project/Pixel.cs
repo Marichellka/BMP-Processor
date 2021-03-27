@@ -16,12 +16,64 @@ namespace Project
         }
         public static Pixel operator *(Pixel item, double number)
         {
-            byte nb = Convert.ToByte(number);
-            byte red = Convert.ToByte(item.Red);
-            byte green = Convert.ToByte(item.Green);
-            byte blue = Convert.ToByte(item.Blue);
-            return new Pixel((byte)(red * nb), (byte)(green * nb), (byte)(blue * nb));
+            Byte red, green, blue;
+            if (item.Red * number > Byte.MaxValue)
+            {
+                red=Byte.MaxValue;
+            }
+            else
+            {
+                red = Convert.ToByte(item.Red*number);
+            }
+            if (item.Green * number > Byte.MaxValue)
+            {
+                green=Byte.MaxValue;
+            }
+            else
+            {
+                green = Convert.ToByte(item.Green*number);
+            }
+            if (item.Blue * number > Byte.MaxValue)
+            {
+                blue=Byte.MaxValue;
+            }
+            else
+            {
+                blue = Convert.ToByte(item.Blue*number);
+            }
+            return new Pixel(red, green, blue);
         }
-        public static Pixel operator +(Pixel item1, Pixel item2) => new Pixel((byte) (item1.Red + item2.Red), (byte) (item1.Green + item2.Green), (byte) (item1.Blue + item2.Blue));
+
+        public static Pixel operator +(Pixel item1, Pixel item2)
+        {
+            Byte red, green, blue;
+            if (item1.Red + item2.Red > Byte.MaxValue)
+            {
+                red=Byte.MaxValue;
+            }
+            else
+            {
+                red = Convert.ToByte(item1.Red+item2.Red);
+            }
+
+            if (item1.Green + item2.Green > Byte.MaxValue)
+            {
+                green=Byte.MaxValue;
+            }
+            else
+            {
+                green = Convert.ToByte(item1.Green+item2.Green);
+            }
+
+            if (item1.Blue + item2.Blue > Byte.MaxValue)
+            {
+                blue=Byte.MaxValue;
+            }
+            else
+            {
+                blue = Convert.ToByte(item1.Blue+item2.Blue);
+            }
+            return new Pixel(red, green, blue);
+        }
     }
 }
