@@ -31,29 +31,35 @@ namespace Project
         private void CreatePicture(BinaryReader br)
         {
             _picture.Pixels = new Pixel[_picture.Depth, _picture.Width];
-            int countOfIgnoreBits = Convert.ToInt32(4-(_picture.Width*3%4));
+<<<<<<< HEAD
+            int countOfIgnoreBits = 4-Convert.ToInt32(_picture.Width)*3%4;
+=======
+            int countOfIgnoreBits = Convert.ToInt32(_picture.Width)%4;
+>>>>>>> BMP_File
             for (int i = 0; i < _picture.Depth; i++)
             {
                 for (int j = 0; j < _picture.Width; j++)
                 {
                     _picture.Pixels[i, j] = new Pixel(br.ReadByte(), br.ReadByte(), br.ReadByte());
                 }
+                br.ReadBytes(countOfIgnoreBits);
             }
-            br.ReadBytes(countOfIgnoreBits);
         }
 
-        public BMP_File(double numberOfTimes, BMP_File previousFile)
+        public BMP_File(int numberOfTimes, BMP_File previousFile)
         {
             headerInfo = previousFile.headerInfo;
-            _picture = new Picture(Convert.ToUInt32(previousFile._picture.Width * numberOfTimes),
-                Convert.ToUInt32(previousFile._picture.Depth * numberOfTimes));
-            _picture.Pixels = _picture.CreateNewPicture(previousFile._picture.Pixels);
+            _picture = new Picture(previousFile._picture.Pixels, numberOfTimes);
             filesize = Convert.ToUInt32(previousFile.filesize * numberOfTimes);
         }
 
         public void Writer(string path)
         {
-            int countOfIgnoreBits = Convert.ToInt32(4-(_picture.Width*3%4));
+<<<<<<< HEAD
+            int countOfZeroBits = 4-Convert.ToInt32(_picture.Width)*3%4;
+=======
+            int countOfZeroBits = Convert.ToInt32(_picture.Width)%4;
+>>>>>>> BMP_File
             using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
             {
                 writer.Write('B');
@@ -69,13 +75,6 @@ namespace Project
                 {
                     writer.Write(headerInfo[i]);
                 }
-
-                foreach (var currentPixel in _picture.Pixels)
-                {
-                    writer.Write(currentPixel.Red);
-                    writer.Write(currentPixel.Green);
-                    writer.Write(currentPixel.Blue);
-                }
                 for (int i = 0; i < _picture.Depth; i++)
                 {
                     for (int j = 0; j < _picture.Width; j++)
@@ -84,10 +83,10 @@ namespace Project
                         writer.Write(_picture.Pixels[i,j].Green);
                         writer.Write(_picture.Pixels[i,j].Blue);
                     }
-                }
-                for (int j = 0; j < countOfIgnoreBits; j++)
-                {
-                    writer.Write(0);
+                    for (int j = 0; j < countOfZeroBits; j++)
+                    {
+                        writer.Write(Convert.ToByte(0));
+                    }
                 }
             }
         }
