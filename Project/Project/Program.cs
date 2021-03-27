@@ -6,7 +6,9 @@ namespace Project
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            BMP_File initialPicture = new BMP_File(args[0]);
+            BMP_File resizedPicture = new BMP_File(Convert.ToInt32(args[2]), initialPicture);
+            resizedPicture.Writer(args[1]);
         }
     }
 }
