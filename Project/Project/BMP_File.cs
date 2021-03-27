@@ -46,6 +46,7 @@ namespace Project
         {
             headerInfo = previousFile.headerInfo;
             _picture = new Picture(previousFile._picture.Pixels, numberOfTimes);
+            _picture.Resize(previousFile._picture.Pixels);
             filesize = Convert.ToUInt32(previousFile.filesize * numberOfTimes);
         }
 
