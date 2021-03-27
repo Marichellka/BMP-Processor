@@ -42,7 +42,7 @@ namespace Project
             }
         }
 
-        public BMP_File(int numberOfTimes, BMP_File previousFile)
+         public BMP_File(double numberOfTimes, BMP_File previousFile)
         {
             headerInfo = previousFile.headerInfo;
             _picture = new Picture(previousFile._picture.Pixels, numberOfTimes);

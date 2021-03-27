@@ -13,7 +13,7 @@ namespace Project
             Width = w;
             Depth = d;
         }
-        public Picture(Pixel[,] matrix, int zoomValue) // 2-nd ctor
+        public Picture(Pixel[,] matrix, double zoomValue) // 2-nd ctor
         {
             Depth = Convert.ToUInt32(matrix.GetLength(0) * zoomValue);
             Width = Convert.ToUInt32(matrix.GetLength(1) * zoomValue);
