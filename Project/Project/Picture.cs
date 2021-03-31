@@ -42,5 +42,24 @@ namespace Project
                 }
             }
         }
+
+        public void Reverse()
+        {
+            for (int i = 0; i < Depth; i++)
+            {
+                for (int j = 0; j <= i; j++)
+                {
+                    Pixel tmp = Pixels[i, j];
+                    Pixels[i, j] = Pixels[Depth - 1 - i, Width-1-j];
+                    Pixels[Depth - 1 - i, Width - 1 - j] = tmp;
+                }
+            }
+            for (int i = 0; i < Depth/2; i++)
+            {
+                Pixel tmp = Pixels[i, i];
+                Pixels[i, i] = Pixels[Depth - 1 - i, Width-1-i];
+                Pixels[Depth - 1 - i, Width - 1 - i] = tmp;
+            }
+        }
     }
 }
