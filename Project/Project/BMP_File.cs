@@ -44,6 +44,11 @@ namespace Project
 
          public BMP_File(double numberOfTimes, BMP_File previousFile)
         {
+            if (numberOfTimes < 0)
+            {
+                previousFile._picture.Reverse();
+                numberOfTimes *= -1;
+            }
             headerInfo = previousFile.headerInfo;
             _picture = new Picture(previousFile._picture.Pixels, numberOfTimes);
             filesize = Convert.ToUInt32(previousFile.filesize * numberOfTimes);
