@@ -11,7 +11,7 @@ namespace Project
             BMP_File resizedPicture = new BMP_File(Convert.ToDouble(args[2]), initialPicture);
             Console.WriteLine("Done.");
             resizedPicture.Writer(args[1]);
-            Console.WriteLine("Written result to "+args[1]);
+            Console.WriteLine("Written result to "+args[1] + ".");
         }
     }
 }
